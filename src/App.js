@@ -19,7 +19,7 @@ function App() {
         </Routes>
      
       </div>
-      <FooterComponent/>
+      
       </Router> 
     </div>
   );

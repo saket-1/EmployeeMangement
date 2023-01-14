@@ -6,6 +6,7 @@ const AddEmployeeComponent = () => {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const [emailId, setEmailId] = useState('');
+    const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const {id} = useParams();
  
@@ -15,15 +16,22 @@ const AddEmployeeComponent = () => {
 
         if(id){
                EmployeeService.updateEmployee(id,employee).then((response)=>{
-                   navigate.push('/employees')
+                setMessage("Data Succesfully updated");
+                setTimeout(() => {
+                    navigate('/employees')
+                  }, 3000);
+
+                   
                }).catch(error => {
                 console.log(error);
                })
         } else{
             EmployeeService.createEmployee(employee).then((response) =>{
-            
+                setMessage("Data Succesfully saved");
+                setTimeout(() => {
+                    navigate('/employees')
+                  }, 3000);
                 console.log(response.data)
-                navigate.push('/employees');
             }).catch(error => {
                 console.log(error)
             })
@@ -31,6 +39,8 @@ const AddEmployeeComponent = () => {
         
         
     }
+
+    
 
     useEffect(() => {
       EmployeeService.getEmployeeById(id).then((response) =>{
@@ -55,7 +65,7 @@ const AddEmployeeComponent = () => {
         <br/><br/>
         <div className='container'>
             <div className='row'>
-                <div className='card col-mid-6 offset-md-3 offset-md-3'>
+                <div className='card col-mid-6'>
                     {
                         title()
                     }
@@ -88,6 +98,7 @@ const AddEmployeeComponent = () => {
                             <div className='form-group mb-2'>
                                 <label className='form-label'>Email Id :</label>
                                 <input type = 'email'
+                                        pattern="[^ @]*@[^ @]*"
                                         placeholder='Enter email Id' 
                                         name = 'emailId' 
                                         className='form-control' 
@@ -98,7 +109,9 @@ const AddEmployeeComponent = () => {
                             </div>
 
                             <button className='btn btn-success' onClick={(e) => saveOrUpdateEmployee(e)}>Submit</button>
-                            <Link to="/employees" className="btn btn-danger">Cancel</Link>
+                            <Link to="/employees" className="btn btn-danger mx-2">Cancel</Link>
+
+                            {message && <p>{message}</p>}
                         </form>
                     </div>
                 </div>
