@@ -22,7 +22,6 @@ const ListEmployeeComponent = () => {
     const deleteEmployee = (employeeId) => {
         EmployeeService.deleteEmployee(employeeId).then((response) =>{
             getAllEmployees();
-
         }).catch(error =>{
             console.log(error);
         })

@@ -9,6 +9,8 @@ const AddEmployeeComponent = () => {
     const [message, setMessage] = useState('');
     const navigate = useNavigate();
     const {id} = useParams();
+    console.log(id);
+    console.log(useParams());
  
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
